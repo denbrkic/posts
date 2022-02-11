@@ -1,10 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import './Home.scss';
 
+interface IProps {
+    greeting: string;
+}
 
-const Home = () => {
+const Home = (props: IProps) => {
+    const {greeting} = props;
+
+    useEffect(() => {
+        console.log(`${greeting} ${Home.displayName}`);
+    }, [greeting]);
+
     return (
         <Container>
             <div className='home'>
@@ -14,5 +23,5 @@ const Home = () => {
         </Container>
     );
 }
-
+Home.displayName = 'Home';
 export default Home;

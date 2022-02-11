@@ -1,13 +1,13 @@
 import React from 'react';
 import './Comment.scss';
 
-interface Props {
+interface IProps {
     email: string;
     body: string;
     key: number;
 }
 
-const Comment = (props: Props) => {
+const Comment = (props: IProps) => {
     const {email, body} = props;
 
     return (

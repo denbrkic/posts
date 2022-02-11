@@ -3,11 +3,11 @@ import './SinglePost.scss';
 import {ICompletePost, IComment} from '../../models/api';
 import Comment from '../Comment/Comment';
 
-interface Props extends ICompletePost {
+interface IProps extends ICompletePost {
     key: number;
 }
 
-const SinglePost = (props: Props) => {
+const SinglePost = (props: IProps) => {
     const {title, body, user, comments} = props;
 
     return (

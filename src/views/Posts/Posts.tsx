@@ -15,7 +15,13 @@ import Spinner from 'react-bootstrap/Spinner';
 import './Posts.scss';
 import SinglePost from '../../components/SinglePost/SinglePost';
 
-const Posts = () => {
+interface Props {
+    greeting: string;
+}
+
+const Posts = (props: Props) => {
+
+    const {greeting} = props;
 
     const [completePosts, setCompletePosts] = useState<ICompletePosts>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,6 +31,7 @@ const Posts = () => {
         let comments: IComments = [];
         let users: IUsers = [];
 
+        console.log(`${greeting} ${Posts.displayName}`);
         setIsLoading(true);
 
         (async () => {
@@ -77,5 +84,6 @@ const Posts = () => {
         </Container>        
     );
 }
+Posts.displayName = 'Posts';
 
 export default Posts;
