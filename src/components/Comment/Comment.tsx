@@ -1,10 +1,19 @@
 import React from 'react';
+import './Comment.scss';
 
-const Comment = () => {
+interface Props {
+    email: string;
+    body: string;
+}
+
+const Comment = (props: Props) => {
+    const {email, body} = props;
+
     return (
-        <>
-            <h1>Comment</h1>
-        </>        
+        <div className='comment'>
+            <q>{body}</q>
+            <div className='user-commented'>By {email}</div>
+        </div>        
     );
 }
 
