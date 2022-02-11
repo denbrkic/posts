@@ -4,6 +4,7 @@ import './Comment.scss';
 interface Props {
     email: string;
     body: string;
+    key: number;
 }
 
 const Comment = (props: Props) => {
@@ -12,7 +13,7 @@ const Comment = (props: Props) => {
     return (
         <div className='comment'>
             <q>{body}</q>
-            <div className='user-commented'>By {email}</div>
+            <div className='by-user'>By {email}</div>
         </div>        
     );
 }

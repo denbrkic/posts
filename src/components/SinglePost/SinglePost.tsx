@@ -3,7 +3,11 @@ import './SinglePost.scss';
 import {ICompletePost, IComment} from '../../models/api';
 import Comment from '../Comment/Comment';
 
-const SinglePost = (props: ICompletePost) => {
+interface Props extends ICompletePost {
+    key: number;
+}
+
+const SinglePost = (props: Props) => {
     const {title, body, user, comments} = props;
 
     return (
@@ -13,7 +17,7 @@ const SinglePost = (props: ICompletePost) => {
             <small>{user && `By ${user?.username}`}</small>
             <div className='comments'>
                 <h3>Comments:</h3>
-                {comments.map((comment: IComment) => <Comment email={comment.email} body={comment.body} />)}
+                {comments.map((comment: IComment) => <Comment email={comment.email} body={comment.body} key={comment.id} />)}
             </div>
         </div>        
     );

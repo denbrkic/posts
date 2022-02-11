@@ -11,17 +11,21 @@ import {
     ICompletePost
 } from '../../models/api';
 import Container from 'react-bootstrap/Container';
+import Spinner from 'react-bootstrap/Spinner';
 import './Posts.scss';
 import SinglePost from '../../components/SinglePost/SinglePost';
 
 const Posts = () => {
 
     const [completePosts, setCompletePosts] = useState<ICompletePosts>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         let posts: IPosts = [];
         let comments: IComments = [];
         let users: IUsers = [];
+
+        setIsLoading(true);
 
         (async () => {
             try {
@@ -44,6 +48,8 @@ const Posts = () => {
                 });
 
                 setCompletePosts(completePostsPlaceholder);
+                localStorage.setItem('posts', JSON.stringify(completePostsPlaceholder));
+                setIsLoading(false);
             } catch (error) {
                 console.log('An error occured');
             }            
@@ -54,7 +60,13 @@ const Posts = () => {
         <Container>
             <div className="posts">
                 <h1>Posts:</h1>
+                {isLoading && (
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                )}
                 {completePosts.map((completePost: ICompletePost) => <SinglePost
+                    key={completePost.id}
                     id={completePost.id}
                     title={completePost.title}
                     user={completePost.user}
