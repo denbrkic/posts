@@ -1,11 +1,11 @@
 import React from 'react';
 
-const SinglePost = () => {
+const Comment = () => {
     return (
         <>
-            <h1>Post</h1>
+            <h1>Comment</h1>
         </>        
     );
 }
 
-export default SinglePost;
+export default Comment;

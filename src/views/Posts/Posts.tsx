@@ -7,8 +7,12 @@ import {
     IComment,
     IUsers,
     IUser,
-    ICompletePosts
+    ICompletePosts,
+    ICompletePost
 } from '../../models/api';
+import Container from 'react-bootstrap/Container';
+import './Posts.scss';
+import SinglePost from '../../components/SinglePost/SinglePost';
 
 const Posts = () => {
 
@@ -29,7 +33,7 @@ const Posts = () => {
                 comments = commentsAllData?.data;
                 users = usersAllData?.data;
 
-                const combinedPostsPlaceholder: ICompletePosts = posts.map((post: IPost) => {
+                const completePostsPlaceholder: ICompletePosts = posts.map((post: IPost) => {
                     return {
                         id: post.id,
                         user: users.find((user: IUser) => user.id === post.userId),
@@ -39,7 +43,7 @@ const Posts = () => {
                     }
                 });
 
-                setCompletePosts(combinedPostsPlaceholder);
+                setCompletePosts(completePostsPlaceholder);
             } catch (error) {
                 console.log('An error occured');
             }            
@@ -47,9 +51,18 @@ const Posts = () => {
     }, []);
 
     return (
-        <>
-            <h1>Posts</h1>
-        </>        
+        <Container>
+            <div className="posts">
+                <h1>Posts:</h1>
+                {completePosts.map((completePost: ICompletePost) => <SinglePost
+                    id={completePost.id}
+                    title={completePost.title}
+                    user={completePost.user}
+                    body={completePost.body}
+                    comments={completePost.comments}
+                />)}
+            </div>
+        </Container>        
     );
 }
 
