@@ -1,12 +1,18 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import * as api from '../../api/api';
 import {
     IPosts,
+    IPost,
     IComments,
-    IUsers
+    IComment,
+    IUsers,
+    IUser,
+    ICompletePosts
 } from '../../models/api';
 
 const Posts = () => {
+
+    const [completePosts, setCompletePosts] = useState<ICompletePosts>([]);
 
     useEffect(() => {
         let posts: IPosts = [];
@@ -23,12 +29,21 @@ const Posts = () => {
                 comments = commentsAllData?.data;
                 users = usersAllData?.data;
 
-                console.log(posts, comments, users);
+                const combinedPostsPlaceholder: ICompletePosts = posts.map((post: IPost) => {
+                    return {
+                        id: post.id,
+                        user: users.find((user: IUser) => user.id === post.userId),
+                        title: post.title,
+                        body: post.body,
+                        comments: comments.filter((comment: IComment) => comment.postId === post.id)
+                    }
+                });
+
+                setCompletePosts(combinedPostsPlaceholder);
             } catch (error) {
                 console.log('An error occured');
             }            
-        })()
-
+        })();
     }, []);
 
     return (
