@@ -14,6 +14,7 @@ import Container from 'react-bootstrap/Container';
 import Spinner from 'react-bootstrap/Spinner';
 import './Posts.scss';
 import SinglePost from '../../components/SinglePost/SinglePost';
+import {Link} from 'react-router-dom';
 
 interface Props {
     greeting: string;
@@ -31,7 +32,7 @@ const Posts = (props: Props) => {
         let comments: IComments = [];
         let users: IUsers = [];
 
-        console.log(`${greeting} ${Posts.displayName}`);
+        greeting && console.log(`${greeting} ${Posts.displayName}`);
         setIsLoading(true);
 
         (async () => {
@@ -55,31 +56,38 @@ const Posts = (props: Props) => {
                 });
 
                 setCompletePosts(completePostsPlaceholder);
-                localStorage.setItem('posts', JSON.stringify(completePostsPlaceholder));
-                setIsLoading(false);
-            } catch (error) {
+            } catch {
                 console.log('An error occured');
-            }            
+            } finally {
+                setIsLoading(false);
+            }           
         })();
-    }, []);
+
+    }, [greeting]);
 
     return (
         <Container>
             <div className="posts">
-                <h1>Posts:</h1>
-                {isLoading && (
+                <h1>Posts Page:</h1>
+                {isLoading ? (
                     <Spinner animation="border" role="status">
                         <span className="visually-hidden">Loading...</span>
                     </Spinner>
-                )}
-                {completePosts.map((completePost: ICompletePost) => <SinglePost
-                    key={completePost.id}
-                    id={completePost.id}
-                    title={completePost.title}
-                    user={completePost.user}
-                    body={completePost.body}
-                    comments={completePost.comments}
-                />)}
+                ) : completePosts.map((completePost: ICompletePost) => {
+                    return (
+                        <Link to={`/post/${completePost.id}`} key={completePost.id}>
+                            <SinglePost
+                                key={completePost.id}
+                                id={completePost.id}
+                                title={completePost.title}
+                                user={completePost.user}
+                                body={completePost.body}
+                                comments={completePost.comments}
+                                greeting={greeting}
+                            />
+                        </Link>
+                    )
+                })}
             </div>
         </Container>        
     );

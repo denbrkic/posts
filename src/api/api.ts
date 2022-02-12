@@ -12,3 +12,18 @@ export const fetchComments = async () => {
 export const fetchUsers = async () => {
     return await axios(`${constants.BASE_URL}${constants.USERS}`);
 }
+
+export const fetchPost = async (postId: number | string) => {
+    if (!postId) return;
+    return await axios(`${constants.BASE_URL}${constants.POSTS}/${postId}`);
+}
+
+export const fetchUser = async (userId: number | string) => {
+    if (!userId) return;
+    return await axios(`${constants.BASE_URL}${constants.USERS}/${userId}`);
+}
+
+export const fetchPostComments = async (postId: number | string) => {
+    if (!postId) return;
+    return await axios(`${constants.BASE_URL}${constants.POSTS}/${postId}${constants.COMMENTS}`);
+}

@@ -11,17 +11,18 @@ const Home = (props: IProps) => {
     const {greeting} = props;
 
     useEffect(() => {
-        console.log(`${greeting} ${Home.displayName}`);
+        greeting && console.log(`${greeting} ${Home.displayName}`);
     }, [greeting]);
 
     return (
         <Container>
             <div className='home'>
-                <h1>Welcome to our forum</h1>
+                <h1>Welcome to our Home Page</h1>
                 <Link to="/posts">Check out some posts</Link>
             </div>
         </Container>
     );
 }
 Home.displayName = 'Home';
+
 export default Home;
