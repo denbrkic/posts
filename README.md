@@ -1,6 +1,7 @@
-## Available Scripts
+## Project setup
 
-In the project directory, you can run:
+Clone this project.
+In the project's root directory run:
 
 ### `yarn install`
 
