@@ -32,7 +32,14 @@ export interface ICompletePost {
     comments: IComments
 }
 
+export interface IError {
+    id: number;
+    isError?: boolean;
+    errorMessage: string;
+}
+
 export interface IComments extends Array<IComment>{}
 export interface IPosts extends Array<IPost>{}
 export interface IUsers extends Array<IUser>{}
 export interface ICompletePosts extends Array<ICompletePost>{}
+export interface IErrors extends Array<IError>{}

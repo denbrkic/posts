@@ -5,7 +5,9 @@ import {
     IPost,
     IComments,
     IUser,
-    ICompletePost
+    ICompletePost,
+    IErrors,
+    IError
 } from '../../models/api';
 import Container from 'react-bootstrap/Container';
 import Spinner from 'react-bootstrap/Spinner';
@@ -24,6 +26,7 @@ const Post = (props: any) => {
         comments: []
     });
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [errors, setErrors] = useState<IErrors>([]);
 
     useEffect(() => {
         let post: IPost;
@@ -54,9 +57,9 @@ const Post = (props: any) => {
                 }
 
                 setCompletePost(completePostPlaceholder);
-                
+                setErrors([]);
             } catch {
-                console.log('An error occured');
+                setErrors([{id: 1, errorMessage: 'An error occured.'}]);
             } finally {
                 setIsLoading(false);
             }           
@@ -68,11 +71,13 @@ const Post = (props: any) => {
         <Container>
             <div className="post">
                 <h1>Single Post Page:</h1>
-                {isLoading ? (
+                {isLoading && (
                     <Spinner animation="border" role="status">
                         <span className="visually-hidden">Loading...</span>
                     </Spinner>
-                ) : <SinglePost
+                )}
+                {!isLoading && errors.length > 0 && errors.map((error: IError) => <p key={error.id}>{error.errorMessage}</p>)}
+                {!isLoading && errors.length === 0 && <SinglePost
                     key={completePost.id}
                     id={completePost.id}
                     title={completePost.title}
