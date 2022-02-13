@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import * as api from '../../api/api';
 import {
     IPost,
@@ -14,7 +14,19 @@ import Spinner from 'react-bootstrap/Spinner';
 import SinglePost from '../../components/SinglePost/SinglePost';
 import './Post.scss';
 
-const Post = (props: any) => {
+export interface IMatch {
+    params: {postId: string};
+    isExact: boolean;
+    path: string;
+    url: string;
+}
+
+interface IProps extends RouteComponentProps {
+    greeting: string;
+    match: IMatch;
+}
+
+const Post = (props: IProps) => {
 
     const {greeting} = props;
 
