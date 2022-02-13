@@ -31,10 +31,7 @@ const Posts = (props: Props) => {
     const [errors, setErrors] = useState<IErrors>([]);
 
     useEffect(() => {
-        let posts: IPosts = [];
-        let comments: IComments = [];
-        let users: IUsers = [];
-
+        
         greeting && console.log(`${greeting} ${Posts.displayName}`);
         setIsLoading(true);
 
@@ -44,9 +41,9 @@ const Posts = (props: Props) => {
                 const commentsAllData = await api.fetchComments();
                 const usersAllData = await api.fetchUsers();
 
-                posts = postsAllData?.data;
-                comments = commentsAllData?.data;
-                users = usersAllData?.data;
+                const posts: IPosts = postsAllData?.data;
+                const comments: IComments = commentsAllData?.data;
+                const users: IUsers = usersAllData?.data;
 
                 const completePostsPlaceholder: ICompletePosts = posts.map((post: IPost) => {
                     return {

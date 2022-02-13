@@ -29,9 +29,7 @@ const Post = (props: any) => {
     const [errors, setErrors] = useState<IErrors>([]);
 
     useEffect(() => {
-        let post: IPost;
-        let comments: IComments = [];
-        let user: IUser;
+
         const postId: string = props?.match?.params?.postId;
 
         greeting && console.log(`${greeting} ${Post.displayName}`);
@@ -44,9 +42,9 @@ const Post = (props: any) => {
                 const userAllData = await api.fetchUser(postAllData?.data?.userId);
                 const postAllComments = await api.fetchPostComments(postId);
 
-                post = postAllData?.data;
-                user = userAllData?.data;
-                comments = postAllComments?.data;
+                const post: IPost = postAllData?.data;
+                const user: IUser = userAllData?.data;
+                const comments: IComments = postAllComments?.data;
 
                 const completePostPlaceholder: ICompletePost = {
                     id: post.id,
