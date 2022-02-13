@@ -15,12 +15,12 @@ export const fetchUsers = async () => {
 
 export const fetchPost = async (postId: string) => {
     if (!postId) return;
-    return await axios(`${constants.BASE_URL}${constants.POSTS}/${postId}`);
+    return await axios(`${constants.BASE_URL}${constants.POST_ID}`.replace(':postId', postId));
 }
 
 export const fetchUser = async (userId: number | string) => {
     if (!userId) return;
-    return await axios(`${constants.BASE_URL}${constants.USERS}/${userId}`);
+    return await axios(`${constants.BASE_URL}${constants.USER_ID}`.replace(':userId', userId as string));
 }
 
 export const fetchPostComments = async (postId: string) => {
